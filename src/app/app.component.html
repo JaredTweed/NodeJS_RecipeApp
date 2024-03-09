@@ -1,0 +1,2 @@
+<app-form #myForm (recipeAdded)="recipeList.refreshList()"></app-form>
+<app-recipe-list #recipeList (editRecipe)="myForm.editThis($event)"></app-recipe-list>
