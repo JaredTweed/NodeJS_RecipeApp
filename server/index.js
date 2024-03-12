@@ -68,7 +68,7 @@ app.get('/ingredients', async (req, res) => {
 })
 
 app.get('/recipes', async (req, res) => {
-  const recipesResponse = await pool.query('SELECT id, title, directions FROM recipes');
+  const recipesResponse = await pool.query('SELECT id, title, directions, timeLastModified FROM recipes');
   let recipes = recipesResponse.rows;
 
   // Add ingredients array to each recipe
@@ -89,7 +89,7 @@ app.post('/recipes', async (req, res) => {
   console.log(req.body);
 
   // Insert recipe
-  const response = await pool.query('INSERT INTO recipes (title, directions) VALUES ($1, $2) RETURNING *', [title, directions]);
+  const response = await pool.query('INSERT INTO recipes (title, directions, timeLastModified) VALUES ($1, $2, CURRENT_TIMESTAMP) RETURNING *', [title, directions]);
   const insertedRecipeId = response.rows[0].id;
 
   // Insert ingredients
@@ -151,6 +151,9 @@ app.put('/recipes/:id', async (req, res) => {
   res.json(response.rows);
 })
 
+/* '0.0.0.0' is a special value that means "all IPv4 addresses on the local machine". 
+Replacing '0.0.0.0' with 'localhost', the server would only be accessible from the 
+same machine on which it's running. */
 app.listen(port, '0.0.0.0')
 
 console.log(`Running on http://0.0.0.0:${port}`);

@@ -1,0 +1,34 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <h2 style="margin-bottom: 0;">{{ currentRecipe ? 'Editing ' + currentRecipe.title : 'New Recipe' }}</h2>
+  <p>All fields are required to submit a form.</p>
+  <input formControlName="title" type="text" />
+
+  <h2 style="margin-bottom: 0;">Ingredients</h2>
+  <p>Check the box to create a new ingredient type.</p>
+  <app-ingredient-form (updateFormIngredients)="updateIngredients($event)"></app-ingredient-form>
+
+  <h2>Directions</h2>
+  <textarea formControlName="directions" cols="30" rows="10"></textarea>
+
+  <button *ngIf="currentRecipe" type="button" (click)="editThis(null)">Exit Edit Mode</button>
+  <button type="submit">Save</button>
+</form>
+
+
+<!-- Test input:
+
+Chicken
+Garam masala (1 part), 
+Cumin (1 part), 
+Paprika (1 part), 
+Garlic powder (1 part),
+Salt to taste,
+Evaporated Milk (1 can (400ml))
+Crushed tomatoes (1 can (800ml))
+
+Marinate Chicken: Mix chicken with garam masala, cumin, paprika, garlic powder, and salt. Refrigerate for 30 mins.
+Sear Chicken: In a pan, heat oil over medium-high and brown chicken on both sides. Remove and set aside.
+Make Sauce: In the same pan, add crushed tomatoes, evaporated milk, remaining spices, and simmer for 5 mins.
+Serve: Add the chicken to the sauce, check seasoning, garnish with cilantro if desired, and serve with rice or naan
+
+ -->

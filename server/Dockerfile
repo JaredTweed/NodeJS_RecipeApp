@@ -8,6 +8,7 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8080
+# this is the port that the app will run on in the container
+EXPOSE 8080 
 
 CMD ["node", "index.js"]

@@ -1,0 +1,3 @@
+<app-form #myForm (recipeAdded)="recipeList.refreshList()"></app-form>
+<app-recipe-list #recipeList (editRecipe)="myForm.editThis($event)"
+  (deletedRecipe)="myForm.recipeDeleted($event)"></app-recipe-list>

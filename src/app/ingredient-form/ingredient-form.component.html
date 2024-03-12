@@ -1,0 +1,18 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <input type="checkbox" formControlName="showTextInput">
+  <select formControlName="dropdown" *ngIf="!myForm.get('showTextInput')?.value">
+    <option *ngFor="let item of ingredientOptions" [ngValue]="item">{{item.name}}</option>
+  </select>
+  <input type="text" formControlName="textInput" *ngIf="myForm.get('showTextInput')?.value" />
+  <input type="text" id="measurement" formControlName="amount" placeholder="1/2 Tbsp" />
+  <button type="submit">+</button>
+</form>
+
+<ul>
+  <li *ngFor="let ingredient of recipeIngredients">
+    <div id="ingredientName">
+      {{ ingredient.name }} ({{ ingredient.amount }})
+    </div>
+    <button id="deleteIngredient" (click)="deleteIngredient(ingredient)">-</button>
+  </li>
+</ul>
